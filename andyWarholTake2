@@ -1,0 +1,59 @@
+def andyWarhol(picture):
+  canvas = makeEmptyPicture(getWidth(picture)*2, getHeight(picture)*2)
+  targetX = 0
+  for sourceX in range(0, getWidth(picture)):
+    targetY = 0
+    for sourceY in range(0, getHeight(picture)):
+      color = getColor(getPixel(picture, sourceX, sourceY))
+      setColor(getPixel(canvas,targetX, targetY),color)
+      targetY = targetY + 1
+    targetX = targetX + 1
+  targetX1 = getWidth(picture)
+  for sourceX in range(0, getWidth(picture)):
+    targetY1 = 0
+    for sourceY in range(0, getHeight(picture)):
+      color = getColor(getPixel(picture, sourceX, sourceY))
+      setColor(getPixel(canvas,targetX1,targetY1),color)
+      targetY1 = targetY1 + 1
+    targetX1 = targetX1 + 1
+  targetX2 = 0
+  for sourceX in range(0, getWidth(picture)):
+    targetY2 = getHeight(picture)
+    for sourceY in range(0, getHeight(picture)):
+      color = getColor(getPixel(picture, sourceX, sourceY))
+      setColor(getPixel(canvas, targetX2, targetY2), color)
+      targetY2 = targetY2 + 1
+    targetX2 = targetX2 + 1
+  targetX3 = getWidth(picture)
+  for sourceX in range(0, getWidth(picture)):
+    targetY3 = getHeight(picture)
+    for sourceY in range (0, getHeight(picture)):
+      color = getColor(getPixel(picture, sourceX, sourceY))
+      setColor(getPixel(canvas, targetX3, targetY3), color)
+      targetY3 = targetY3 + 1
+    targetX3 = targetX3 + 1
+  for x in range(getWidth(picture), getWidth(canvas)):
+    for y in range(0, getHeight(picture)):
+      px = getPixel(canvas, x, y)
+      newRed = getRed(px) * 0.299
+      newGreen = getGreen(px) * 0.587
+      newBlue = getBlue(px) * 0.114
+      luminance = newRed + newGreen + newBlue
+      setColor(px,makeColor(luminance, luminance, luminance))
+  for x in range(0, getWidth(picture)):
+    for y in range(getHeight(picture), getHeight(canvas)):
+      px = getPixel(canvas, x, y)
+      red = getRed(px)
+      green = getGreen(px)
+      blue = getBlue(px)
+      negColor = makeColor(255-red, 255-green, 255-blue)
+      setColor(px,negColor)
+  for x in range(getWidth(picture), getWidth(canvas)):
+    for y in range(getHeight(picture), getHeight(canvas)):
+      px = getPixel(canvas, x, y)
+      finalGreen = getRed(px)
+      finalBlue = getGreen(px)
+      finalRed = getBlue(px)
+      swapColor = makeColor(finalRed, finalGreen, finalBlue)
+      setColor(px, swapColor)
+  show(canvas)
